@@ -11,7 +11,7 @@ class GetConcreteNumberTriviaUsecase
   GetConcreteNumberTriviaUsecase(this.repository);
 
   @override
-  Future<Either<Failure, NumberTriviaEntity>?> call(int param) async {
+  Future<Either<Failure, NumberTriviaEntity>> call(int param) async {
     return await repository.getConcreteNumberTrivia(param);
   }
 }

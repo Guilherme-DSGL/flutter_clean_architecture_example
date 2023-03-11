@@ -4,7 +4,7 @@ import '../../../../core/error/failures.dart';
 import '../entities/number_trivia.dart';
 
 abstract class NumberTriviaRepository {
-  Future<Either<Failure, NumberTriviaEntity>>? getConcreteNumberTrivia(
+  Future<Either<Failure, NumberTriviaEntity>> getConcreteNumberTrivia(
       int number);
-  Future<Either<Failure, NumberTriviaEntity>>? getRandomNumberTrivia();
+  Future<Either<Failure, NumberTriviaEntity>> getRandomNumberTrivia();
 }
