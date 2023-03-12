@@ -1,22 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/number_trivia_repository.dart';
+import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/get_concrete_number_trivia_repository.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/domain/usecases/get_concrete_number_trivia_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'get_concrete_number_trivia_test.mocks.dart';
+import './get_concrete_number_trivia_test.mocks.dart';
 
-@GenerateMocks([NumberTriviaRepository])
+@GenerateMocks([GetConcreteNumberTriviaRepository])
 void main() {
-  late MockNumberTriviaRepository mockNumberTriviaRepository;
+  late MockGetConcreteNumberTriviaRepository mockNumberTriviaRepository;
   late GetConcreteNumberTriviaUsecase usecase;
   late int tNumber;
   late NumberTriviaEntity tNumberTrivia;
 
   setUp(() {
-    mockNumberTriviaRepository = MockNumberTriviaRepository();
+    mockNumberTriviaRepository = MockGetConcreteNumberTriviaRepository();
     usecase = GetConcreteNumberTriviaUsecase(mockNumberTriviaRepository);
     tNumberTrivia = const NumberTriviaEntity(number: 1, text: 'test');
     tNumber = 1;
@@ -27,13 +27,13 @@ void main() {
     () async {
       //arange
 
-      when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
+      when(mockNumberTriviaRepository(any))
           .thenAnswer((_) async => Right(tNumberTrivia));
       //act
       final result = await usecase(1);
       //assert
       expect(result, equals(Right(tNumberTrivia)));
-      verify(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber));
+      verify(mockNumberTriviaRepository(tNumber));
       verifyNoMoreInteractions(mockNumberTriviaRepository);
     },
   );
