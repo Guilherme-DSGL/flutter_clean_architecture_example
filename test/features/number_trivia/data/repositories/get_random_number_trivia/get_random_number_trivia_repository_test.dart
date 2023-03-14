@@ -3,104 +3,92 @@ import 'package:flutter_clean_architecture_example/core/error/exceptions.dart';
 import 'package:flutter_clean_architecture_example/core/error/failures.dart';
 import 'package:flutter_clean_architecture_example/core/platform/network_info.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/cache_number_trivia_datasource.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_concrete_number_trivia_datasource.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_last_number_trivia_datasource.dart';
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_random_number_trivia_datasource.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/data/dto/number_trivia_dto.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/repositories/get_concrete_number_trivia_repository_imp.dart';
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/repositories/get_random_number_trivia_repository_imp.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/get_concrete_number_trivia_repository.dart';
+import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/get_random_number_trivia_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'get_concrete_number_trivia_repository_test.mocks.dart';
+import 'get_random_number_trivia_repository_test.mocks.dart';
 
 @GenerateMocks([
-  NetworkInfo,
-  GetConcreteNumberTriviaDataSource,
+  GetRandomNumberTriviaDataSource,
   CacheNumberTriviaDataSource,
+  NetworkInfo,
   GetLastNumberTriviaLocalDataSource
 ])
 void main() {
-  late GetConcreteNumberTriviaRepository getConcreteNumberTriviaRepository;
-  late MockGetConcreteNumberTriviaDataSource
-      mockGetConcreteNumberTriviaDataSource;
+  late GetRandomNumberTriviaRepository getRandomNumberTriviaRepository;
+  late MockGetRandomNumberTriviaDataSource mockGetRandomNumberTriviaDataSource;
+  late MockCacheNumberTriviaDataSource mockCacheNumberTriviaDataSource;
   late MockGetLastNumberTriviaLocalDataSource
       mockGetLastNumberTriviaLocalDataSource;
-  late MockCacheNumberTriviaDataSource mockCacheNumberTriviaDataSource;
   late MockNetworkInfo mockNetworkInfo;
   late int tNumber;
   late NumberTriviaDTO tNumberTriviaDTO;
   late NumberTriviaEntity tNumberTriviaEntity;
   setUp(() {
+    mockGetRandomNumberTriviaDataSource = MockGetRandomNumberTriviaDataSource();
     mockNetworkInfo = MockNetworkInfo();
-    mockGetConcreteNumberTriviaDataSource =
-        MockGetConcreteNumberTriviaDataSource();
     mockCacheNumberTriviaDataSource = MockCacheNumberTriviaDataSource();
     mockGetLastNumberTriviaLocalDataSource =
         MockGetLastNumberTriviaLocalDataSource();
-    getConcreteNumberTriviaRepository = GetConcreteNumberTriviaRepositoryImp(
-        networkInfo: mockNetworkInfo,
-        getConcreteNumberTriviaDataSource:
-            mockGetConcreteNumberTriviaDataSource,
-        cacheNumberTriviaDataSource: mockCacheNumberTriviaDataSource,
-        getLastNumberTriviaLocalDataSource:
-            mockGetLastNumberTriviaLocalDataSource);
+    getRandomNumberTriviaRepository = GetRandomNumberTriviaRepositoryImp(
+      getLastNumberTriviaLocalDataSource:
+          mockGetLastNumberTriviaLocalDataSource,
+      networkInfo: mockNetworkInfo,
+      getRandomNumberTriviaDataSource: mockGetRandomNumberTriviaDataSource,
+      cacheNumberTriviaDataSource: mockCacheNumberTriviaDataSource,
+    );
     tNumber = 1;
     tNumberTriviaDTO = NumberTriviaDTO(text: "test", number: tNumber);
     tNumberTriviaEntity = tNumberTriviaDTO;
   });
 
-  test("Should test if the device is online", () async {
-    when(mockNetworkInfo.isConected).thenAnswer((_) async => true);
-
-    final result = getConcreteNumberTriviaRepository(tNumber);
-
-    verify(mockNetworkInfo.isConected);
-  });
-
-  group("device is online", () {
+  group("Device is online", () {
     setUp(() {
       when(mockNetworkInfo.isConected).thenAnswer((_) async => true);
     });
 
     test(
-        "should return remote data when the call to remote data source is suscessful",
+        "Should return a NumberTriviaEntity when the call to remote data is sucessfull",
         () async {
-      when(mockGetConcreteNumberTriviaDataSource(number: anyNamed("number")))
+      when(mockGetRandomNumberTriviaDataSource())
           .thenAnswer((_) async => tNumberTriviaDTO);
 
-      final result = await getConcreteNumberTriviaRepository(tNumber);
-      verify(mockGetConcreteNumberTriviaDataSource(number: tNumber));
+      final result = await getRandomNumberTriviaRepository();
+      verify(mockGetRandomNumberTriviaDataSource());
       expect(result, equals(Right(tNumberTriviaEntity)));
     });
 
-    test(
-        "should cache the data locally when the call to remote data source is suscessful",
-        () async {
-      when(mockGetConcreteNumberTriviaDataSource(number: anyNamed("number")))
+    test("should cache the data when data source is suscessful", () async {
+      when(mockGetRandomNumberTriviaDataSource())
           .thenAnswer((_) async => tNumberTriviaDTO);
 
-      final result = await getConcreteNumberTriviaRepository(tNumber);
-      verify(mockGetConcreteNumberTriviaDataSource(number: tNumber));
+      final result = await getRandomNumberTriviaRepository();
+      verify(mockGetRandomNumberTriviaDataSource());
       verify(mockCacheNumberTriviaDataSource(
           numberTriviaToCache: tNumberTriviaDTO));
       expect(result, equals(Right(tNumberTriviaEntity)));
     });
 
     test(
-        "should return server failure when the call to remote data source is unsuscessful",
+        "Should return a server failure when call the remote data source is unsucessful",
         () async {
-      when(mockGetConcreteNumberTriviaDataSource(number: anyNamed("number")))
-          .thenThrow(ServerException());
+      when(mockGetRandomNumberTriviaDataSource()).thenThrow(ServerException());
 
-      final result = await getConcreteNumberTriviaRepository(tNumber);
-      verify(mockGetConcreteNumberTriviaDataSource(number: tNumber));
+      final result = await getRandomNumberTriviaRepository();
+      verify(mockGetRandomNumberTriviaDataSource());
       verifyZeroInteractions(mockCacheNumberTriviaDataSource);
       expect(result, equals(Left(ServerFailure())));
     });
   });
-  group("device is offline", () {
+
+  group("Device is offline", () {
     setUp(() {
       when(mockNetworkInfo.isConected).thenAnswer((_) async => false);
     });
@@ -110,9 +98,9 @@ void main() {
       when(mockGetLastNumberTriviaLocalDataSource())
           .thenAnswer((_) async => tNumberTriviaDTO);
 
-      final result = await getConcreteNumberTriviaRepository(tNumber);
+      final result = await getRandomNumberTriviaRepository();
 
-      verifyZeroInteractions(mockGetConcreteNumberTriviaDataSource);
+      verifyZeroInteractions(mockGetRandomNumberTriviaDataSource);
       verify(mockGetLastNumberTriviaLocalDataSource());
       expect(result, equals(Right(tNumberTriviaDTO)));
     });
@@ -122,7 +110,7 @@ void main() {
       when(mockGetLastNumberTriviaLocalDataSource())
           .thenThrow(CacheException());
 
-      final result = await getConcreteNumberTriviaRepository(tNumber);
+      final result = await getRandomNumberTriviaRepository();
 
       expect(result, equals(Left(CacheFailure())));
     });
