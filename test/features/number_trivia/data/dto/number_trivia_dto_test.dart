@@ -4,11 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 main() {
   const tNumberTriviaDTO = NumberTriviaDTO(
-      number: 23.00,
+      number: 23,
       text: "1337 is the number that spells \"leet\" in leetspeak.");
   final json = {
     "text": "1337 is the number that spells \"leet\" in leetspeak.",
-    "number": 23.00,
+    "number": 23,
     "found": true,
     "type": "trivia"
   };
@@ -31,7 +31,7 @@ main() {
       final result = tNumberTriviaDTO.toMap();
       final expectedJson = {
         'text': '1337 is the number that spells "leet" in leetspeak.',
-        'number': 23.0,
+        'number': 23,
       };
       expect(result, equals(expectedJson));
     });

@@ -7,7 +7,7 @@ class NumberTriviaDTO extends NumberTriviaEntity {
   // ignore: overridden_fields
   final String text;
   // ignore: overridden_fields
-  final double number;
+  final int number;
   const NumberTriviaDTO({
     required this.text,
     required this.number,
@@ -23,7 +23,7 @@ class NumberTriviaDTO extends NumberTriviaEntity {
   factory NumberTriviaDTO.fromMap(Map<String, dynamic> map) {
     return NumberTriviaDTO(
       text: map['text'] as String,
-      number: (map['number'] as num).toDouble(),
+      number: (map['number'] as num).toInt(),
     );
   }
 

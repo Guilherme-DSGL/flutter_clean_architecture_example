@@ -5,19 +5,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:dartz/dartz.dart' as _i2;
-import 'package:flutter_clean_architecture_example/core/error/failures.dart'
-    as _i6;
 import 'package:flutter_clean_architecture_example/core/platform/network_info.dart'
-    as _i8;
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_concrete_number_trivia_datasource.dart'
-    as _i9;
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/dto/number_trivia_dto.dart'
-    as _i3;
-import 'package:flutter_clean_architecture_example/features/number_trivia/domain/entities/number_trivia.dart'
-    as _i7;
-import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/get_concrete_number_trivia_repository.dart'
     as _i4;
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/cache_number_trivia_datasource.dart'
+    as _i7;
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_concrete_number_trivia_datasource.dart'
+    as _i6;
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_last_number_trivia_datasource.dart'
+    as _i8;
+import 'package:flutter_clean_architecture_example/features/number_trivia/data/dto/number_trivia_dto.dart'
+    as _i2;
+import 'package:flutter_clean_architecture_example/features/number_trivia/domain/entities/number_trivia.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -31,8 +30,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
+class _FakeNumberTriviaDTO_0 extends _i1.SmartFake
+    implements _i2.NumberTriviaDTO {
+  _FakeNumberTriviaDTO_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -41,50 +41,21 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeNumberTriviaDTO_1 extends _i1.SmartFake
-    implements _i3.NumberTriviaDTO {
-  _FakeNumberTriviaDTO_1(
+class _FakeNumberTriviaEntity_1 extends _i1.SmartFake
+    implements _i3.NumberTriviaEntity {
+  _FakeNumberTriviaEntity_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
           parent,
           parentInvocation,
         );
-}
-
-/// A class which mocks [GetConcreteNumberTriviaRepository].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetConcreteNumberTriviaRepository extends _i1.Mock
-    implements _i4.GetConcreteNumberTriviaRepository {
-  MockGetConcreteNumberTriviaRepository() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i5.Future<_i2.Either<_i6.Failure, _i7.NumberTriviaEntity>> call(
-          int? number) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [number],
-        ),
-        returnValue:
-            _i5.Future<_i2.Either<_i6.Failure, _i7.NumberTriviaEntity>>.value(
-                _FakeEither_0<_i6.Failure, _i7.NumberTriviaEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [number],
-          ),
-        )),
-      ) as _i5.Future<_i2.Either<_i6.Failure, _i7.NumberTriviaEntity>>);
 }
 
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i4.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
@@ -100,24 +71,74 @@ class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetConcreteNumberTriviaDataSource extends _i1.Mock
-    implements _i9.GetConcreteNumberTriviaDataSource {
+    implements _i6.GetConcreteNumberTriviaDataSource {
   MockGetConcreteNumberTriviaDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i3.NumberTriviaDTO> call(int? number) => (super.noSuchMethod(
+  _i5.Future<_i2.NumberTriviaDTO> call({required int? number}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
-          [number],
+          [],
+          {#number: number},
         ),
         returnValue:
-            _i5.Future<_i3.NumberTriviaDTO>.value(_FakeNumberTriviaDTO_1(
+            _i5.Future<_i2.NumberTriviaDTO>.value(_FakeNumberTriviaDTO_0(
           this,
           Invocation.method(
             #call,
-            [number],
+            [],
+            {#number: number},
           ),
         )),
-      ) as _i5.Future<_i3.NumberTriviaDTO>);
+      ) as _i5.Future<_i2.NumberTriviaDTO>);
+}
+
+/// A class which mocks [CacheNumberTriviaDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCacheNumberTriviaDataSource extends _i1.Mock
+    implements _i7.CacheNumberTriviaDataSource {
+  MockCacheNumberTriviaDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void call({required _i3.NumberTriviaEntity? numberTriviaToCache}) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {#numberTriviaToCache: numberTriviaToCache},
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [GetLastNumberTriviaLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetLastNumberTriviaLocalDataSource extends _i1.Mock
+    implements _i8.GetLastNumberTriviaLocalDataSource {
+  MockGetLastNumberTriviaLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i3.NumberTriviaEntity> call() => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue:
+            _i5.Future<_i3.NumberTriviaEntity>.value(_FakeNumberTriviaEntity_1(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.NumberTriviaEntity>);
 }
