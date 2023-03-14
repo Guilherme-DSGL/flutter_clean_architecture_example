@@ -1,5 +1,8 @@
 import '../dto/number_trivia_dto.dart';
 
 abstract class GetConcreteNumberTriviaDataSource {
-  Future<NumberTriviaDTO> call(int number);
+  ///Calls the http://numbersapi.com/{number} endpoint.
+  ///
+  ///Throws a [ServerException] for all error codes.
+  Future<NumberTriviaDTO> call({required int number});
 }
