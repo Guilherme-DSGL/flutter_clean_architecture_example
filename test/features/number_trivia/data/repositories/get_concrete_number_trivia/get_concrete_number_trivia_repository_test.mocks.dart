@@ -106,7 +106,7 @@ class MockCacheNumberTriviaDataSource extends _i1.Mock
   }
 
   @override
-  void call({required _i3.NumberTriviaEntity? numberTriviaToCache}) =>
+  void call({required _i2.NumberTriviaDTO? numberTriviaToCache}) =>
       super.noSuchMethod(
         Invocation.method(
           #call,

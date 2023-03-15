@@ -53,7 +53,8 @@ void main() {
 
   test("Should test if the device is online", () async {
     when(mockNetworkInfo.isConected).thenAnswer((_) async => true);
-
+    when(mockGetConcreteNumberTriviaDataSource(number: anyNamed("number")))
+        .thenAnswer((_) => Future.value(tNumberTriviaDTO));
     final result = getConcreteNumberTriviaRepository(tNumber);
 
     verify(mockNetworkInfo.isConected);
