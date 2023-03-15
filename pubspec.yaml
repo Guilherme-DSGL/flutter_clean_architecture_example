@@ -24,6 +24,7 @@ dependencies:
   connectivity: ^3.0.6
   http: ^0.13.5
   shared_preferences: ^2.0.18
+  connectivity_plus: ^3.0.3
   
 
 dev_dependencies:

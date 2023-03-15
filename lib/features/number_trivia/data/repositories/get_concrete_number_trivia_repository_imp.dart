@@ -6,7 +6,7 @@ import 'package:flutter_clean_architecture_example/features/number_trivia/data/d
 import 'package:flutter_clean_architecture_example/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:flutter_clean_architecture_example/features/number_trivia/domain/repositories/get_concrete_number_trivia_repository.dart';
 
-import '../../../../core/platform/network_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../datasources/get_concrete_number_trivia_datasource.dart';
 
 class GetConcreteNumberTriviaRepositoryImp
