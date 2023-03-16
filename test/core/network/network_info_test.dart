@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_clean_architecture_example/core/network/network_info_connectivity_imp.dart';
+import 'package:flutter_clean_architecture_example/core/network/network_info/network_info_connectivity_imp.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

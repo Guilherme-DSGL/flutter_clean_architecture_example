@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_clean_architecture_example/core/error/exceptions.dart';
-import 'package:flutter_clean_architecture_example/core/network/network_info.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/cache_number_trivia_datasource.dart';
-import 'package:flutter_clean_architecture_example/features/number_trivia/data/datasources/get_last_number_trivia_datasource.dart';
 
+import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/network_info/network_info.dart';
 import '../../domain/entities/number_trivia.dart';
 import '../../domain/repositories/get_random_number_trivia_repository.dart';
+import '../datasources/cache_number_trivia_datasource.dart';
+import '../datasources/get_last_number_trivia_datasource.dart';
 import '../datasources/get_random_number_trivia_datasource.dart';
 
 class GetRandomNumberTriviaRepositoryImp

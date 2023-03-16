@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_clean_architecture_example/core/network/network_info.dart';
+import 'package:flutter_clean_architecture_example/core/network/network_info/network_info.dart';
 
 class NetWorkInfoConnectivityImp implements NetworkInfo {
   final Connectivity connectivity;
