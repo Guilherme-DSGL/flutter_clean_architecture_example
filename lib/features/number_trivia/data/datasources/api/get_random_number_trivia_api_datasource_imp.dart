@@ -2,16 +2,16 @@ import 'package:flutter_clean_architecture_example/core/error/exceptions.dart';
 
 import '../../../../../core/network/http_client/http_client.dart';
 import '../../dto/number_trivia_dto.dart';
-import '../get_concrete_number_trivia_datasource.dart';
+import '../get_random_number_trivia_datasource.dart';
 
-class GetConcreteNumberTriviaApiDataSourceImp
-    implements GetConcreteNumberTriviaDataSource {
+class GetRandomNumberTriviaApiDataSourceImp
+    implements GetRandomNumberTriviaDataSource {
   final HttpClientAdapter httpClientAdapter;
-  GetConcreteNumberTriviaApiDataSourceImp(this.httpClientAdapter);
+  GetRandomNumberTriviaApiDataSourceImp(this.httpClientAdapter);
 
   @override
-  Future<NumberTriviaDTO> call({required int number}) async {
-    final url = "$kApiUrl/$number";
+  Future<NumberTriviaDTO> call() async {
+    const url = "$kApiUrl/random";
     final response = await httpClientAdapter
         .get(url, headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
