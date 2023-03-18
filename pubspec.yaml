@@ -25,6 +25,7 @@ dependencies:
   http: ^0.13.5
   shared_preferences: ^2.0.18
   connectivity_plus: ^3.0.3
+  bloc_test: ^9.1.1
   
 
 dev_dependencies:

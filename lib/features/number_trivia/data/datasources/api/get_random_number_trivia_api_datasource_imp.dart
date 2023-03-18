@@ -1,5 +1,4 @@
-import 'package:flutter_clean_architecture_example/core/error/exceptions.dart';
-
+import '../../../../../core/error/exceptions.dart';
 import '../../../../../core/network/http_client/http_client.dart';
 import '../../dto/number_trivia_dto.dart';
 import '../get_random_number_trivia_datasource.dart';
