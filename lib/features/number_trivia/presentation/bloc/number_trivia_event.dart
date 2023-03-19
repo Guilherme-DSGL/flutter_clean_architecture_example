@@ -15,9 +15,4 @@ class GetTriviaForConcreteNumber extends NumberTriviaEvent {
   });
 }
 
-class GetTriviaForRandomNumber extends NumberTriviaEvent {
-  final int number;
-  const GetTriviaForRandomNumber({
-    required this.number,
-  });
-}
+class GetTriviaForRandomNumber extends NumberTriviaEvent {}
