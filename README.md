@@ -1,16 +1,19 @@
-# flutter_clean_architecture_example
+# Projeto de Exemplo: Clean Architecture com TDD, BLoC e Cubit
 
-A new Flutter project.
+Este repositório contém um projeto de exemplo que demonstra a implementação da Clean Architecture utilizando as práticas de Desenvolvimento Orientado a Testes (TDD), BLoC (Business Logic Component) e Cubit. Além disso, o projeto também aborda a realização de requisições HTTP para interação com serviços externos.
 
-## Getting Started
+## Objetivo
 
-This project is a starting point for a Flutter application.
+O objetivo deste projeto é fornecer um exemplo básico de como organizar um aplicativo usando a Clean Architecture, uma abordagem que visa separar as responsabilidades de diferentes camadas do sistema. A aplicação inclui a implementação de testes automatizados para garantir a qualidade do código e a manutenção da integridade ao longo do tempo.
 
-A few resources to get you started if this is your first Flutter project:
+## Estrutura do Projeto
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O projeto está estruturado em várias camadas, cada uma com uma responsabilidade específica:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Presentation**: Constituida pela interface do usuário, Blocs e Cubits
+
+- **Domain**: Constituida pela Entidade central da aplicação e seus casos de uso com interfaces do repository.
+
+- **Data**: Camada que lida com a obtenção e armazenamento de dados. Aqui, as chamadas de API HTTP e o acesso a bancos de dados são implementados.
+
+- **Core**: Este módulo contém exceções e classes utilitárias que são compartilhadas por todas as outras camadas.
